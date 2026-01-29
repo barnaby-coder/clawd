@@ -1,0 +1,269 @@
+{
+  "questions": [
+    {
+      "id": "self-1",
+      "question": "What one thing about yourself surprised you today?",
+      "category": "self-awareness",
+      "pool": "core",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "self-2",
+      "question": "What emotion dominated your day, and why?",
+      "category": "self-awareness",
+      "pool": "core",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "self-3",
+      "question": "If you could describe your energy level (1-10) right now, what would it be?",
+      "category": "self-awareness",
+      "pool": "core",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "self-4",
+      "question": "What triggered your biggest stress or anxiety today?",
+      "category": "self-awareness",
+      "pool": "core",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "emotional-1",
+      "question": "How did you handle a difficult conversation or challenge today?",
+      "category": "emotional-intelligence",
+      "pool": "eq",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "emotional-2",
+      "question": "What emotional state were you in during that situation?",
+      "category": "emotional-intelligence",
+      "pool": "eq",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "emotional-3",
+      "question": "What helped you calm down or regain perspective?",
+      "category": "emotional-intelligence",
+      "pool": "eq",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "emotional-4",
+      "question": "What emotion did you struggle to express or manage today?",
+      "category": "emotional-intelligence",
+      "pool": "eq",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "relationships-1",
+      "question": "What was the most meaningful interaction you had with someone today?",
+      "category": "relationships",
+      "pool": "social",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "relationships-2",
+      "question": "How did you show up for someone who needed you today?",
+      "category": "relationships",
+      "pool": "social",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "relationships-3",
+      "question": "What boundary did you respect or set with a colleague or friend today?",
+      "category": "relationships",
+      "pool": "social",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "relationships-4",
+      "question": "What social signal did you miss or misinterpret today?",
+      "category": "relationships",
+      "pool": "social",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "relationships-5",
+      "question": "How did you keep a colleague or friend motivated today?",
+      "category": "relationships",
+      "pool": "social",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "growth-1",
+      "question": "What's one new insight or perspective you gained today?",
+      "category": "growth",
+      "pool": "growth",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "growth-2",
+      "question": "What mistake did you make that you learned from?",
+      "category": "growth",
+      "pool": "growth",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "growth-3",
+      "question": "What skill or capability do you feel you improved in today?",
+      "category": "growth",
+      "pool": "growth",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "growth-4",
+      "question": "What's one thing you want to be better at by next week?",
+      "category": "growth",
+      "pool": "growth",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "growth-5",
+      "question": "How did you handle feedback or criticism today?",
+      "category": "growth",
+      "pool": "growth",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "synthesis-1",
+      "question": "What's the dominant theme or pattern across all your interactions today?",
+      "category": "synthesis",
+      "pool": "integration",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "synthesis-2",
+      "question": "How did different parts of your day (work, personal, relationships) relate to each other?",
+      "category": "synthesis",
+      "pool": "integration",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "synthesis-3",
+      "question": "What's one intention or goal you have for tomorrow based on today's experience?",
+      "category": "synthesis",
+      "pool": "integration",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "synthesis-4",
+      "question": "What would make today a \"perfect day\" and why?",
+      "category": "synthesis",
+      "pool": "integration",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "synthesis-5",
+      "question": "What is the most important thing you want to remember from today?",
+      "category": "synthesis",
+      "pool": "integration",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "writing-1",
+      "question": "What one thing about your writing style surprised you today?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-2",
+      "question": "What part of your writing could be clearer?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-3",
+      "question": "How would you describe your current tone (professional, friendly, witty)?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-4",
+      "question": "What one structural change would improve your communication?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-5",
+      "question": "How did you keep someone interested in your message today?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-6",
+      "question": "What's one new word or phrase you used today?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-7",
+      "question": "What feedback have you received about how your writing lands?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-8",
+      "question": "What's one way you could make your communication more engaging?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-9",
+      "question": "What emotional tone did you use in your communications today?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    },
+    {
+      "id": "writing-10",
+      "question": "How does your writing style differ across different contexts (professional vs personal)?",
+      "category": "writing",
+      "pool": "writing",
+      "lastAsked": null,
+      "rotation": "weekly"
+    }
+  ],
+  "lastUpdated": "2026-01-29T07:00:00Z"
+}
