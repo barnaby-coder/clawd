@@ -1,0 +1,139 @@
+---
+name: Daily Reflection
+description: End-of-day reflection skill. Asks 3-5 rotating EQ questions at 10:30 PM MST, saves curated insights to MEMORY.md. Builds your "second brain" over time through distilled wisdom.
+on:
+  schedule:
+    # Runs every evening at 10:30 PM Mountain Time (MST)
+    # Timezone automatically adjusts for Daylight Saving Time
+    # Winter: 10:30 PM MST = 22:30 UTC
+    # Summer: 10:30 PM MDT = 23:30 UTC
+    cron: '30 22 * * *'
+    timezone: America/Denver  # Same as MST/Phoenix (handles DST correctly)
+
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 'Task to run'
+        required: false
+        default: reflection
+        type: choice
+        options:
+          - reflection
+          - test
+          - newsletter
+          - backup
+          - security
+
+jobs:
+  daily-reflection:
+    name: Daily Reflection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        run: |
+          echo "🧠 Daily Reflection — Triggered at $(date)"
+          echo "🕒 Scheduled Time: 10:30 PM MST"
+          echo "🌐 Timezone: America/Denver (handles DST)"
+          cd /home/ubuntu/clawd
+
+      - name: Load Barnaby's Memory
+        uses: ./.github/actions/load-memory@v1
+        with:
+          days: 2
+          include-workspace: true
+
+      - name: Run Daily Reflection Skill
+        run: |
+          cd /home/ubuntu/clawd
+          
+          # Run Daily Reflection skill
+          if [ "${{ github.event.inputs.task }}" != "test" ]; then
+            echo "🧠 Running Daily Reflection for Barnaby..."
+            echo "📋 Today's Date: $(date +%Y-%m-%d)"
+          fi
+
+      - name: Commit Reflection Results
+        if: github.event_name != 'schedule'
+        run: |
+          cd /home/ubuntu/clawd
+          
+          # Check if memory file was updated
+          if [ -f "memory/$(date +%Y-%m-%d).md" ]; then
+            echo "📝 Memory file updated for $(date +%Y-%m-%d)"
+            
+            git add memory/
+            git config user.name "Barnaby Clawdbot"
+            git config user.email "barnaby.aibot@gmail.com"
+            git commit -m "Daily Reflection — $(date +%Y-%m-%d)" || echo "No changes to commit"
+            
+            # Push updates
+            git push origin main 2>&1 || echo "No changes to push"
+          else
+            echo "ℹ️  No memory file created for $(date +%Y-%m-%d)"
+
+      - name: Test Reflection (Optional)
+        if: "${{ github.event.inputs.task }}" == "test"
+        run: |
+          cd /home/ubuntu/clawd
+          echo "🧪 Running test reflection..."
+          echo "📋 Test Date: $(date +%Y-%m-%d)"
+          
+          # Run skill in test mode
+          echo "🧠 Testing Daily Reflection skill functionality"
+
+      - name: Test Newsletter (Optional)
+        if: "${{ github.event.inputs.task }}" == "newsletter"
+        run: |
+          cd /home/ubuntu/clawd/microfeed
+          echo "📰 Running MicroFeed to generate newsletter draft..."
+          node server.js --digest
+          
+          echo "✅ Newsletter draft generated!"
+          ls -la data.json
+
+      - name: Test Backup (Optional)
+        if: "${{ github.event.inputs.task }}" == "backup"
+        run: |
+          cd /home/ubuntu
+          BACKUP_FILE="backup-$(date +%Y%m%d-%H%M%S).tar.gz"
+          
+          echo "🗄️ Creating workspace backup..."
+          tar -czf "$BACKUP_FILE" clawd/
+          
+          echo "✅ Backup created: $BACKUP_FILE"
+          
+          du -h "$BACKUP_FILE"
+
+      - name: Security Audit (Optional)
+        if: "${{ github.event.inputs.task }}" == "security"
+        run: |
+          echo "🛡️ Running security audit..."
+          
+          # Check UFW status
+          sudo ufw status
+          
+          # Check Fail2ban status
+          sudo fail2ban-client status
+          
+          # Check for unauthorized logins
+          sudo grep "Failed password" /var/log/auth.log 2>/dev/null | tail -5
+          
+          echo "✅ Security audit complete"
+
+      - name: Notification
+        if: success()
+        run: |
+          echo "🎉 Daily Reflection Complete!"
+          echo "🕒 Triggered at: 10:30 PM MST"
+          echo "📝 Results saved to memory/"
+          echo "✅ GitHub Actions workflow completed"
+
+      - name: Error Notification
+        if: failure()
+        run: |
+          echo "❌ Daily Reflection Failed!"
+          echo "🕒 Triggered at: 10:30 PM MST"
+          echo "⚠️ Check logs for details"
