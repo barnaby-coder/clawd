@@ -1,0 +1,221 @@
+{
+  "projects": [
+    {
+      "id": "proj-1",
+      "name": "Agentic AI Research",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "proj-2",
+      "name": "Side Hustle",
+      "color": "#10b981"
+    },
+    {
+      "id": "proj-1769400791303",
+      "name": "Enterprise AI Expert Roadmap",
+      "color": "#8b5cf6"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "projectId": "proj-1",
+      "title": "Learn Clawdbot capabilities",
+      "status": "done",
+      "created": "2026-01-25T21:43:52.746Z",
+      "updated": "2026-01-26T00:24:10.611Z"
+    },
+    {
+      "id": "t2",
+      "projectId": "proj-1",
+      "title": "Set up browser automation",
+      "status": "done",
+      "created": "2026-01-25T21:43:52.746Z"
+    },
+    {
+      "id": "t3",
+      "projectId": "proj-1",
+      "title": "Research agentic AI landscape",
+      "status": "backlog",
+      "created": "2026-01-25T21:43:52.746Z"
+    },
+    {
+      "id": "t4",
+      "projectId": "proj-2",
+      "title": "Define side hustle direction",
+      "status": "done",
+      "created": "2026-01-25T21:43:52.746Z",
+      "updated": "2026-01-25T23:13:48.355Z"
+    },
+    {
+      "id": "t-1769400791314",
+      "projectId": "proj-1",
+      "title": "Research agentic AI architectures and frameworks",
+      "description": "Phase 1: Build Knowledge",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:11.314Z",
+      "updated": "2026-01-26T04:21:20.154Z"
+    },
+    {
+      "id": "t-1769400791323",
+      "projectId": "proj-1769400791303",
+      "title": "Study enterprise AI use cases at production maturity",
+      "description": "Phase 1: Build Knowledge",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:11.323Z"
+    },
+    {
+      "id": "t-1769400791334",
+      "projectId": "proj-1769400791303",
+      "title": "Learn AI governance, risk management, and compliance",
+      "description": "Phase 1: Build Knowledge",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:11.334Z"
+    },
+    {
+      "id": "t-1769400791343",
+      "projectId": "proj-1769400791303",
+      "title": "Understand build vs buy decision frameworks for AI",
+      "description": "Phase 1: Build Knowledge",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:11.343Z"
+    },
+    {
+      "id": "t-1769400791353",
+      "projectId": "proj-1769400791303",
+      "title": "Study ROI frameworks for enterprise AI investment",
+      "description": "Phase 1: Build Knowledge",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:11.353Z"
+    },
+    {
+      "id": "t-1769400791363",
+      "projectId": "proj-1769400791303",
+      "title": "Complete 2-week intensive via MicroFeed daily digests",
+      "description": "Phase 1: Build Knowledge",
+      "status": "in-progress",
+      "created": "2026-01-26T04:13:11.363Z"
+    },
+    {
+      "id": "t-1769400791373",
+      "projectId": "proj-1769400791303",
+      "title": "Identify 10 key voices and thought leaders to follow",
+      "description": "Phase 1: Build Knowledge",
+      "status": "in-progress",
+      "created": "2026-01-26T04:13:11.373Z"
+    },
+    {
+      "id": "t-1769400802845",
+      "projectId": "proj-1769400791303",
+      "title": "Set up LinkedIn profile for AI thought leadership",
+      "description": "Phase 2: Build Credibility",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.845Z"
+    },
+    {
+      "id": "t-1769400802854",
+      "projectId": "proj-1769400791303",
+      "title": "Write first 5 LinkedIn posts using MicroFeed",
+      "description": "Phase 2: Build Credibility",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.854Z"
+    },
+    {
+      "id": "t-1769400802865",
+      "projectId": "proj-1769400791303",
+      "title": "Build demo: Document triage assistant for insurance",
+      "description": "Phase 2: Build Credibility",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.865Z"
+    },
+    {
+      "id": "t-1769400802874",
+      "projectId": "proj-1769400791303",
+      "title": "Build demo: Claims analysis prototype",
+      "description": "Phase 2: Build Credibility",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.874Z"
+    },
+    {
+      "id": "t-1769400802883",
+      "projectId": "proj-1769400791303",
+      "title": "Build demo: Meeting summarizer with action items",
+      "description": "Phase 2: Build Credibility",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.883Z"
+    },
+    {
+      "id": "t-1769400802893",
+      "projectId": "proj-1769400791303",
+      "title": "Establish posting cadence: 2-3x per week",
+      "description": "Phase 2: Build Credibility",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.893Z"
+    },
+    {
+      "id": "t-1769400802901",
+      "projectId": "proj-1769400791303",
+      "title": "Engage with 20 AI thought leaders on LinkedIn",
+      "description": "Phase 2: Build Credibility",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.901Z"
+    },
+    {
+      "id": "t-1769400802910",
+      "projectId": "proj-1769400791303",
+      "title": "Document learning journey publicly",
+      "description": "Phase 2: Build Credibility",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.910Z"
+    },
+    {
+      "id": "t-1769400802919",
+      "projectId": "proj-1769400791303",
+      "title": "Launch newsletter or long-form content series",
+      "description": "Phase 3: Establish Authority",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.919Z"
+    },
+    {
+      "id": "t-1769400802928",
+      "projectId": "proj-1769400791303",
+      "title": "Apply to speak at enterprise AI events or webinars",
+      "description": "Phase 3: Establish Authority",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.929Z"
+    },
+    {
+      "id": "t-1769400802938",
+      "projectId": "proj-1769400791303",
+      "title": "Build consulting offer and pilot with a peer",
+      "description": "Phase 3: Establish Authority",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.938Z"
+    },
+    {
+      "id": "t-1769400802947",
+      "projectId": "proj-1769400791303",
+      "title": "Create portfolio site showcasing demos and insights",
+      "description": "Phase 3: Establish Authority",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.947Z"
+    },
+    {
+      "id": "t-1769400802956",
+      "projectId": "proj-1769400791303",
+      "title": "Develop workshop curriculum: AI for Enterprise Leaders",
+      "description": "Phase 3: Establish Authority",
+      "status": "backlog",
+      "created": "2026-01-26T04:13:22.956Z"
+    },
+    {
+      "id": "t-1769400927715",
+      "projectId": "proj-1",
+      "title": "Build out of microferd app",
+      "description": "",
+      "status": "done",
+      "created": "2026-01-26T04:15:27.715Z",
+      "updated": "2026-01-26T04:15:46.209Z"
+    }
+  ]
+}

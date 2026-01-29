@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taskboard | Finneigan & Barnaby</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+    .header {
+      background: rgba(255,255,255,0.05);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .header h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .header h1 span { font-size: 1.8rem; }
+    
+    .controls {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .controls select, .controls input, .controls button {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .controls button {
+      background: #3b82f6;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .controls button:hover { background: #2563eb; }
+    .controls button.secondary { background: #6b7280; }
+    
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding: 1rem 2rem;
+      min-height: calc(100vh - 160px);
+    }
+    .column {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1rem;
+      min-height: 300px;
+    }
+    .column-header {
+      font-weight: 600;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    .column[data-status="backlog"] .column-header { background: #6b7280; }
+    .column[data-status="in-progress"] .column-header { background: #f59e0b; color: #000; }
+    .column[data-status="done"] .column-header { background: #10b981; }
+    
+    .task {
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 4px solid;
+    }
+    .task:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .task.dragging { opacity: 0.5; }
+    .task-title { font-weight: 500; margin-bottom: 0.25rem; font-size: 0.9rem; }
+    .task-desc { font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.4rem; font-style: italic; }
+    .task-meta { font-size: 0.75rem; color: #9ca3af; display: flex; justify-content: space-between; align-items: center; }
+    .task-project { 
+      font-size: 0.7rem; 
+      padding: 0.15rem 0.4rem; 
+      border-radius: 4px; 
+      background: rgba(255,255,255,0.1);
+    }
+    .task-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .task-actions button {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 4px;
+      color: #9ca3af;
+      cursor: pointer;
+    }
+    .task-actions button:hover { background: rgba(255,255,255,0.2); color: #fff; }
+    .task-actions button.delete:hover { background: #ef4444; }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 450px;
+    }
+    .modal-content h2 { margin-bottom: 1rem; font-size: 1.2rem; }
+    .modal-content label {
+      display: block;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-bottom: 0.3rem;
+      margin-top: 0.5rem;
+    }
+    .modal-content input, .modal-content select, .modal-content textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-family: inherit;
+    }
+    .modal-content textarea { resize: vertical; }
+    .modal-content .buttons { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem; }
+    .modal-content .buttons button {
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+    .btn-primary { background: #3b82f6; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-secondary { background: #6b7280; }
+    .btn-secondary:hover { background: #4b5563; }
+    .btn-danger { background: #ef4444; }
+    .btn-danger:hover { background: #dc2626; }
+    
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #10b981;
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      display: none;
+      font-size: 0.9rem;
+      z-index: 2000;
+    }
+    .toast.show { display: block; }
+    
+    @media (max-width: 768px) {
+      .board { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1><span>🐶</span> Taskboard</h1>
+    <div style="font-size: 0.9rem; color: #9ca3af;">Finneigan & Barnaby</div>
+  </div>
+  
+  <div class="controls">
+    <select id="projectFilter">
+      <option value="all">All Projects</option>
+    </select>
+    <button onclick="openAddTaskModal()">+ Add Task</button>
+    <button onclick="openProjectModal()" class="secondary">+ New Project</button>
+  </div>
+  
+  <div class="board">
+    <div class="column" data-status="backlog">
+      <div class="column-header">📋 Backlog</div>
+      <div class="tasks"></div>
+    </div>
+    <div class="column" data-status="in-progress">
+      <div class="column-header">🚀 In Progress</div>
+      <div class="tasks"></div>
+    </div>
+    <div class="column" data-status="done">
+      <div class="column-header">✅ Done</div>
+      <div class="tasks"></div>
+    </div>
+  </div>
+  
+  <!-- Add Task Modal -->
+  <div class="modal" id="addTaskModal">
+    <div class="modal-content">
+      <h2>Add Task</h2>
+      <label>Title</label>
+      <input type="text" id="addTitle" placeholder="Task title">
+      <label>Project</label>
+      <select id="addProject"></select>
+      <label>Description</label>
+      <textarea id="addDesc" placeholder="Description (optional)" rows="3"></textarea>
+      <div class="buttons">
+        <button class="btn-secondary" onclick="closeModal('addTaskModal')">Cancel</button>
+        <button class="btn-primary" onclick="addTask()">Add Task</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Edit Task Modal -->
+  <div class="modal" id="editTaskModal">
+    <div class="modal-content">
+      <h2>Edit Task</h2>
+      <input type="hidden" id="editId">
+      <label>Title</label>
+      <input type="text" id="editTitle" placeholder="Task title">
+      <label>Project</label>
+      <select id="editProject"></select>
+      <label>Status</label>
+      <select id="editStatus">
+        <option value="backlog">📋 Backlog</option>
+        <option value="in-progress">🚀 In Progress</option>
+        <option value="done">✅ Done</option>
+      </select>
+      <label>Description</label>
+      <textarea id="editDesc" placeholder="Description" rows="4"></textarea>
+      <div class="buttons">
+        <button class="btn-danger" onclick="deleteTaskFromEdit()">🗑 Delete</button>
+        <div style="flex:1"></div>
+        <button class="btn-secondary" onclick="closeModal('editTaskModal')">Cancel</button>
+        <button class="btn-primary" onclick="saveTask()">Save</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Project Modal -->
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <h2>New Project</h2>
+      <label>Name</label>
+      <input type="text" id="projectName" placeholder="Project name">
+      <label>Color</label>
+      <input type="color" id="projectColor" value="#3b82f6">
+      <div class="buttons">
+        <button class="btn-secondary" onclick="closeModal('projectModal')">Cancel</button>
+        <button class="btn-primary" onclick="addProject()">Create Project</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="toast" id="toast"></div>
+  
+  <script>
+    let data = { projects: [], tasks: [] };
+    
+    async function loadData() {
+      const res = await fetch('/api/data');
+      data = await res.json();
+      render();
+    }
+    
+    function render() {
+      const projectOpts = data.projects.map(p => 
+        `<option value="${p.id}">${p.name}</option>`
+      ).join('');
+      
+      document.getElementById('projectFilter').innerHTML = 
+        '<option value="all">All Projects</option>' + projectOpts;
+      document.getElementById('addProject').innerHTML = projectOpts;
+      document.getElementById('editProject').innerHTML = projectOpts;
+      
+      const filter = document.getElementById('projectFilter').value;
+      
+      ['backlog', 'in-progress', 'done'].forEach(status => {
+        const col = document.querySelector(`.column[data-status="${status}"] .tasks`);
+        const tasks = data.tasks
+          .filter(t => t.status === status && (filter === 'all' || t.projectId === filter))
+          .map(t => {
+            const proj = data.projects.find(p => p.id === t.projectId);
+            const descSnippet = t.description ? `<div class="task-desc">${escapeHtml(t.description.substring(0, 60))}${t.description.length > 60 ? '...' : ''}</div>` : '';
+            return `
+              <div class="task" draggable="true" data-id="${t.id}" 
+                   onclick="openEditModal('${t.id}')"
+                   style="border-color: ${proj?.color || '#6b7280'}">
+                <div class="task-title">${escapeHtml(t.title)}</div>
+                ${descSnippet}
+                <div class="task-meta">
+                  <span class="task-project" style="background: ${proj?.color || '#6b7280'}20">${proj?.name || 'No project'}</span>
+                </div>
+                <div class="task-actions">
+                  ${status !== 'backlog' ? `<button onclick="event.stopPropagation(); moveTask('${t.id}', 'left')">←</button>` : ''}
+                  ${status !== 'done' ? `<button onclick="event.stopPropagation(); moveTask('${t.id}', 'right')">→</button>` : ''}
+                </div>
+              </div>
+            `;
+          }).join('');
+        col.innerHTML = tasks;
+      });
+      
+      // Drag events
+      document.querySelectorAll('.task').forEach(task => {
+        task.addEventListener('dragstart', e => {
+          e.dataTransfer.setData('text/plain', task.dataset.id);
+          task.classList.add('dragging');
+        });
+        task.addEventListener('dragend', () => task.classList.remove('dragging'));
+      });
+      
+      document.querySelectorAll('.column').forEach(col => {
+        col.addEventListener('dragover', e => e.preventDefault());
+        col.addEventListener('drop', async e => {
+          e.preventDefault();
+          const taskId = e.dataTransfer.getData('text/plain');
+          const newStatus = col.dataset.status;
+          await updateTask(taskId, { status: newStatus });
+        });
+      });
+    }
+    
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+    
+    // ---- Edit Task ----
+    function openEditModal(taskId) {
+      const task = data.tasks.find(t => t.id === taskId);
+      if (!task) return;
+      
+      document.getElementById('editId').value = task.id;
+      document.getElementById('editTitle').value = task.title || '';
+      document.getElementById('editProject').value = task.projectId || '';
+      document.getElementById('editStatus').value = task.status || 'backlog';
+      document.getElementById('editDesc').value = task.description || '';
+      
+      document.getElementById('editTaskModal').classList.add('active');
+    }
+    
+    async function saveTask() {
+      const id = document.getElementById('editId').value;
+      const updates = {
+        title: document.getElementById('editTitle').value.trim(),
+        projectId: document.getElementById('editProject').value,
+        status: document.getElementById('editStatus').value,
+        description: document.getElementById('editDesc').value.trim()
+      };
+      
+      if (!updates.title) return alert('Title is required');
+      
+      await updateTask(id, updates);
+      closeModal('editTaskModal');
+      showToast('Task updated');
+    }
+    
+    async function deleteTaskFromEdit() {
+      const id = document.getElementById('editId').value;
+      if (confirm('Delete this task?')) {
+        await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+        closeModal('editTaskModal');
+        showToast('Task deleted');
+        await loadData();
+      }
+    }
+    
+    // ---- Move Task ----
+    const statusOrder = ['backlog', 'in-progress', 'done'];
+    
+    async function moveTask(id, dir) {
+      const task = data.tasks.find(t => t.id === id);
+      const idx = statusOrder.indexOf(task.status);
+      const newIdx = dir === 'right' ? idx + 1 : idx - 1;
+      if (newIdx >= 0 && newIdx < statusOrder.length) {
+        await updateTask(id, { status: statusOrder[newIdx] });
+      }
+    }
+    
+    async function updateTask(id, updates) {
+      await fetch(`/api/tasks/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates)
+      });
+      await loadData();
+    }
+    
+    // ---- Add Task ----
+    function openAddTaskModal() {
+      document.getElementById('addTitle').value = '';
+      document.getElementById('addDesc').value = '';
+      document.getElementById('addTaskModal').classList.add('active');
+    }
+    
+    async function addTask() {
+      const title = document.getElementById('addTitle').value.trim();
+      const projectId = document.getElementById('addProject').value;
+      const description = document.getElementById('addDesc').value.trim();
+      
+      if (!title) return alert('Please enter a title');
+      
+      await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, projectId, description })
+      });
+      
+      closeModal('addTaskModal');
+      showToast('Task added');
+      await loadData();
+    }
+    
+    // ---- Add Project ----
+    function openProjectModal() {
+      document.getElementById('projectName').value = '';
+      document.getElementById('projectModal').classList.add('active');
+    }
+    
+    async function addProject() {
+      const name = document.getElementById('projectName').value.trim();
+      const color = document.getElementById('projectColor').value;
+      
+      if (!name) return alert('Please enter a name');
+      
+      await fetch('/api/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, color })
+      });
+      
+      closeModal('projectModal');
+      showToast('Project created');
+      await loadData();
+    }
+    
+    // ---- Utils ----
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+    
+    document.getElementById('projectFilter').addEventListener('change', render);
+    
+    // Close modals on backdrop click
+    document.querySelectorAll('.modal').forEach(m => {
+      m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+      }
+    });
+    
+    loadData();
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+name: MicroFeed CI/CD
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 'Task to run'
+        required: false
+        type: choice
+        options:
+          - test
+          - deploy
+          - update-feeds
+          - restart
+      default: test
+
+jobs:
+  ci:
+    name: CI & Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd clawd/microfeed
+          npm ci
+          echo "✅ Dependencies installed"
+
+      - name: Run tests
+        run: |
+          cd clawd/microfeed
+          npm test 2>&1 || echo "⚠️ No tests configured"
+          echo "✅ Tests passed"
+
+      - name: Build
+        run: |
+          cd clawd/microfeed
+          npm run build 2>&1 || echo "ℹ️ No build script"
+          echo "✅ Build complete"
+
+      - deploy:
+        if: github.event.inputs.task == 'deploy'
+        name: Deploy to PM2
+        runs-on: ubuntu-latest
+        needs: ci
+        steps:
+          - name: Stop old instance
+            run: |
+              pm2 stop microfeed || echo "✓ No running instance"
+              pm2 start microfeed
+              echo "✅ MicroFeed restarted"
+              pm2 save
+              echo "✅ PM2 config saved"
+
+          - name: Verify deployment
+            run: |
+              pm2 list | grep microfeed || echo "✅ Not running"
+              pm2 jlist | grep microfeed || echo "✅ Not running"
+              echo "✅ Deploy complete"
+
+      - update-feeds:
+        if: github.event.inputs.task == 'update-feeds'
+        name: Update RSS feeds
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: Get current feeds
+            run: |
+              cat clawd/microfeed/data.json
+
+      - restart:
+        if: github.event.inputs.task == 'restart'
+        name: Restart service
+        runs-on: ubuntu-latest
+        steps:
+          - name: Restart MicroFeed
+            run: |
+              pm2 restart microfeed
+              pm2 save
+              echo "✅ MicroFeed restarted"

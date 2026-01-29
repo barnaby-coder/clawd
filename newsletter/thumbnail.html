@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  html, body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: #0f172a;
+  }
+  
+  .container {
+    width: 1200px;
+    height: 630px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0f172a 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Subtle grid pattern */
+  .container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+      linear-gradient(rgba(99, 102, 241, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  /* Glow accent */
+  .glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  
+  .glow2 {
+    position: absolute;
+    bottom: -150px;
+    left: -50px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  
+  .edition {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #818cf8;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .title {
+    font-size: 72px;
+    font-weight: 900;
+    color: #f8fafc;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+  
+  .subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    color: #94a3b8;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+  }
+  
+  .brand {
+    position: absolute;
+    bottom: 80px;
+    right: 90px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    z-index: 1;
+  }
+  
+  .brand-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #6366f1, #0ea5e9);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: white;
+    font-weight: 700;
+  }
+  
+  .brand-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #e2e8f0;
+    letter-spacing: 1px;
+  }
+  
+  .accent-line {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, #0ea5e9);
+    border-radius: 2px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="glow"></div>
+    <div class="glow2"></div>
+    <div class="edition">Edition #001</div>
+    <div class="accent-line"></div>
+    <div class="title">The Agents<br>Are Here.</div>
+    <div class="subtitle">Navigating the agentic economy with resilience, curiosity, and agency.</div>
+    <div class="brand">
+      <div class="brand-icon">A</div>
+      <div class="brand-name">Agency</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  html, body {
+    width: 800px;
+    height: 800px;
+    overflow: hidden;
+    background: #0f172a;
+  }
+  
+  .container {
+    width: 800px;
+    height: 800px;
+    background: linear-gradient(145deg, #1e293b 0%, #0f172a 50%, #1a1f3a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Subtle glow behind the dog */
+  .glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(14, 165, 233, 0.08) 40%, transparent 70%);
+    border-radius: 50%;
+  }
+  
+  .dog {
+    position: relative;
+    z-index: 2;
+    width: 500px;
+    height: 500px;
+  }
+  
+  svg {
+    width: 500px;
+    height: 500px;
+    filter: drop-shadow(0 0 40px rgba(99, 102, 241, 0.3));
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="glow"></div>
+    <div class="dog">
+      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bichon Frise - fluffy, round, friendly -->
+        
+        <!-- Fluffy body/chest puff -->
+        <ellipse cx="250" cy="420" rx="130" ry="80" fill="#e8e0d8" opacity="0.9"/>
+        
+        <!-- Main head - big fluffy round shape (Bichons are ROUND) -->
+        <circle cx="250" cy="250" r="160" fill="#f5f0eb"/>
+        
+        <!-- Fluffy texture bumps around the head -->
+        <circle cx="120" cy="200" r="55" fill="#f5f0eb"/>
+        <circle cx="380" cy="200" r="55" fill="#f5f0eb"/>
+        <circle cx="130" cy="270" r="50" fill="#f0ebe5"/>
+        <circle cx="370" cy="270" r="50" fill="#f0ebe5"/>
+        <circle cx="160" cy="140" r="50" fill="#f5f0eb"/>
+        <circle cx="340" cy="140" r="50" fill="#f5f0eb"/>
+        <circle cx="200" cy="110" r="45" fill="#f5f0eb"/>
+        <circle cx="300" cy="110" r="45" fill="#f5f0eb"/>
+        <circle cx="250" cy="100" r="40" fill="#f5f0eb"/>
+        <circle cx="110" cy="240" r="40" fill="#f2ede7"/>
+        <circle cx="390" cy="240" r="40" fill="#f2ede7"/>
+        
+        <!-- Ears (floppy, hidden in the fluff - darker to show depth) -->
+        <ellipse cx="140" cy="230" rx="40" ry="55" fill="#e0d6cc" transform="rotate(-15, 140, 230)"/>
+        <ellipse cx="360" cy="230" rx="40" ry="55" fill="#e0d6cc" transform="rotate(15, 360, 230)"/>
+        
+        <!-- More fluff over ears -->
+        <circle cx="135" cy="210" r="35" fill="#f2ede7"/>
+        <circle cx="365" cy="210" r="35" fill="#f2ede7"/>
+        
+        <!-- Face area - slightly recessed -->
+        <ellipse cx="250" cy="265" rx="90" ry="75" fill="#f8f4f0"/>
+        
+        <!-- Eyes - dark, round, expressive (Bichon signature) -->
+        <circle cx="215" cy="240" r="18" fill="#1a1a2e"/>
+        <circle cx="285" cy="240" r="18" fill="#1a1a2e"/>
+        
+        <!-- Eye shine - gives life -->
+        <circle cx="222" cy="233" r="6" fill="#ffffff" opacity="0.9"/>
+        <circle cx="292" cy="233" r="6" fill="#ffffff" opacity="0.9"/>
+        
+        <!-- Small secondary shine -->
+        <circle cx="210" cy="245" r="3" fill="#ffffff" opacity="0.5"/>
+        <circle cx="280" cy="245" r="3" fill="#ffffff" opacity="0.5"/>
+        
+        <!-- Subtle AI glow in eyes -->
+        <circle cx="215" cy="240" r="18" fill="url(#eyeGlow)" opacity="0.3"/>
+        <circle cx="285" cy="240" r="18" fill="url(#eyeGlow)" opacity="0.3"/>
+        
+        <!-- Nose - small, black, round -->
+        <ellipse cx="250" cy="285" rx="14" ry="11" fill="#2a2a3e"/>
+        <ellipse cx="250" cy="283" rx="10" ry="5" fill="#3a3a50" opacity="0.4"/>
+        
+        <!-- Mouth - gentle smile -->
+        <path d="M 237 295 Q 250 310 263 295" stroke="#4a4a5e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        
+        <!-- Tongue peeking out slightly - playful -->
+        <ellipse cx="250" cy="305" rx="8" ry="10" fill="#e88b9a" opacity="0.8"/>
+        
+        <!-- Tech accent - subtle circuit pattern on one side -->
+        <g opacity="0.15">
+          <line x1="95" y1="350" x2="95" y2="390" stroke="#6366f1" stroke-width="2"/>
+          <line x1="95" y1="390" x2="120" y2="390" stroke="#6366f1" stroke-width="2"/>
+          <circle cx="120" cy="390" r="3" fill="#6366f1"/>
+          <line x1="85" y1="370" x2="95" y2="370" stroke="#6366f1" stroke-width="2"/>
+          <circle cx="85" cy="370" r="3" fill="#6366f1"/>
+        </g>
+        <g opacity="0.15">
+          <line x1="405" y1="340" x2="405" y2="380" stroke="#0ea5e9" stroke-width="2"/>
+          <line x1="405" y1="380" x2="380" y2="380" stroke="#0ea5e9" stroke-width="2"/>
+          <circle cx="380" cy="380" r="3" fill="#0ea5e9"/>
+          <line x1="415" y1="360" x2="405" y2="360" stroke="#0ea5e9" stroke-width="2"/>
+          <circle cx="415" cy="360" r="3" fill="#0ea5e9"/>
+        </g>
+        
+        <defs>
+          <radialGradient id="eyeGlow">
+            <stop offset="0%" stop-color="#6366f1"/>
+            <stop offset="100%" stop-color="#0ea5e9"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
