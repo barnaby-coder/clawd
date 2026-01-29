@@ -1,0 +1,8 @@
+name: Test Reflection
+on: workflow_dispatch
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: echo "Test workflow triggered successfully at $(date)"
