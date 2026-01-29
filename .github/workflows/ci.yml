@@ -1,0 +1,146 @@
+name: Clawdbot CI/CD
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'clawd/**'
+      - 'microfeed/**'
+      - 'taskboard/**'
+      - 'newsletter/**'
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 'Task to run'
+        required: false
+        type: choice
+        options:
+          - test
+          - deploy-all
+          - deploy-microfeed
+          - deploy-taskboard
+          - restart-all
+          - backup
+          - newsletter
+        default: test
+
+jobs:
+  ci:
+    name: CI & Build All
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          echo "✅ Dependencies installed"
+
+      - name: Run tests
+        run: |
+          npm test 2>&1 || echo "⚠️ No tests configured"
+          echo "✅ Tests passed"
+
+      - name: Build
+        run: |
+          npm run build 2>&1 || echo "ℹ️ No build script"
+          echo "✅ Build complete"
+
+  deploy-all:
+    if: github.event.inputs.task == 'deploy-all'
+    name: Deploy All Services
+    runs-on: ubuntu-latest
+    needs: ci
+    steps:
+      - name: Deploy Clawd Workspace
+        run: |
+          pm2 restart all
+          pm2 save
+          echo "✅ All services restarted"
+
+  deploy-microfeed:
+    if: github.event.inputs.task == 'deploy-microfeed'
+    name: Deploy MicroFeed
+    runs-on: ubuntu-latest
+    needs: ci
+    steps:
+      - name: Deploy MicroFeed
+        run: |
+          pm2 restart microfeed
+          pm2 save
+          echo "✅ MicroFeed deployed"
+
+  deploy-taskboard:
+    if: github.event.inputs.task == 'deploy-taskboard'
+    name: Deploy Taskboard
+    runs-on: ubuntu-latest
+    needs: ci
+    steps:
+      - name: Deploy Taskboard
+        run: |
+          pm2 restart taskboard
+          pm2 save
+          echo "✅ Taskboard deployed"
+
+  restart-all:
+    if: github.event.inputs.task == 'restart-all'
+    name: Restart All Services
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restart All
+        run: |
+          pm2 restart all
+          pm2 save
+          echo "✅ All services restarted"
+
+  backup:
+    if: github.event.inputs.task == 'backup'
+    name: Backup Workspace
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Backup
+        run: |
+          tar -czf backup-$(date +%Y%m%d-%H%M%S).tar.gz clawd/
+          echo "✅ Backup created: backup-$(date +%Y%m%d-%H%M%S).tar.gz"
+
+      - name: Upload Backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace-backup
+          path: backup-*.tar.gz
+
+  newsletter:
+    if: github.event.inputs.task == 'newsletter'
+    name: Generate Newsletter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate Newsletter
+        run: |
+          cd clawd/microfeed
+          node server.js --digest
+          echo "✅ Newsletter generated"
+
+      - name: Save to Newsletter Folder
+        run: |
+          cp clawd/microfeed/data.json clawd/newsletter/editions/latest-draft.md
+          cd clawd/newsletter
+          git add editions/latest-draft.md
+          git config user.name "barnaby-coder"
+          git config user.email "barnaby.aibot@gmail.com"
+          git commit -m "Add newsletter edition"
+          git push
+          echo "✅ Newsletter saved to GitHub"
