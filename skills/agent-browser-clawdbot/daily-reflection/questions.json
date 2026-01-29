@@ -185,6 +185,118 @@
       "rotation": "daily"
     },
     {
+      "id": "influence-1",
+      "question": "Before responding, did you read the room?",
+      "category": "influence",
+      "pool": "influence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "influence-2",
+      "question": "Did you influence the outcome of the conversation?",
+      "category": "influence",
+      "pool": "influence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "influence-3",
+      "question": "Was your response strategic (aligned with stakeholder) or reactive (just answering)?",
+      "category": "influence",
+      "pool": "influence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "influence-4",
+      "question": "Did you give stakeholder \"time and space\" to shift perspective?",
+      "category": "influence",
+      "pool": "influence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "influence-5",
+      "question": "Did you use \"after\" language to build consensus?",
+      "category": "influence",
+      "pool": "influence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "influence-6",
+      "question": "Did you use \"forward momentum\" language to move toward agreement?",
+      "category": "influence",
+      "pool": "influence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "influence-7",
+      "question": "Was there any unspoken agenda or blocker you addressed?",
+      "category": "influence",
+      "pool": "influence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "influence-8",
+      "question": "How did different parts of your day (work, personal, relationships) relate to each other?",
+      "category": "influence",
+      "pool": "influence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "presence-1",
+      "question": "Monitor recent message history for key indicators",
+      "category": "presence",
+      "pool": "presence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "presence-2",
+      "question": "Identify stakeholders (managers, decision makers, influencers)",
+      "category": "presence",
+      "pool": "presence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "presence-3",
+      "question": "Detect power dynamics (who's influencing whom)",
+      "category": "presence",
+      "pool": "presence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "presence-4",
+      "question": "Sense emotional state (frustrated, excited, tense, relaxed)",
+      "category": "presence",
+      "pool": "presence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "presence-5",
+      "question": "Identify unspoken agendas or blockers",
+      "category": "presence",
+      "pool": "presence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
+      "id": "presence-6",
+      "question": "Provide automatic \"brake\" signals when you need time to think",
+      "category": "presence",
+      "pool": "presence",
+      "lastAsked": null,
+      "rotation": "daily"
+    },
+    {
       "id": "writing-1",
       "question": "What one thing about your writing style surprised you today?",
       "category": "writing",
@@ -265,5 +377,5 @@
       "rotation": "weekly"
     }
   ],
-  "lastUpdated": "2026-01-29T07:00:00Z"
+  "lastUpdated": "2026-01-29T13:36:00Z"
 }
