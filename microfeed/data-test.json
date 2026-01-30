@@ -1,0 +1,100 @@
+{
+  "items": [
+    {
+      "id": "test-001",
+      "title": "Test: AI Leadership (High Priority)",
+      "url": "https://reuters.com/technology/ai-leadership-strategy",
+      "source": "Reuters",
+      "status": "unprocessed",
+      "marchScore": 100,
+      "aiLeadership": true
+      "publishedAt": "2026-01-30T00:00:00Z"
+    },
+    {
+      "id": "test-002",
+      "title": "Test: Cloud Computing (High Priority Tech)",
+      "url": "https://reuters.com/technology/cloud-computing-aws-amazon",
+      "source": "Reuters",
+      "status": "unprocessed",
+      "marchScore": 90,
+      "aiLeadership": false,
+      "publishedAt": "2026-01-30T00:00:00Z"
+    },
+    {
+      "id": "test-003",
+      "title": "Test: AI Ethics Article (Critical Priority)",
+      "url": "https://reuters.com/technology/ai-ethics",
+      "source": "Reuters",
+      "status": "unprocessed",
+      "marchScore": 100,
+      "aiLeadership": true,
+      "publishedAt": "2026-01-30T00:00:00Z"
+    },
+    {
+      "id": "test-004",
+      "title": "Test: General Business News (Medium Priority)",
+      "url": "https://reuters.com/business/general",
+      "source": "Reuters",
+      "status": "unprocessed",
+      "marchScore": 60,
+      "aiLeadership": false,
+      "publishedAt": "2026-01-30T00:00:00Z"
+    },
+    {
+      "id": "test-005",
+      "title": "Test: Low Priority General Article",
+      "url": "https://reuters.com/lifestyle/health",
+      "source": "Reuters",
+      "status": "unprocessed",
+      "marchScore": 50,
+      "aiLeadership": false,
+      "publishedAt": "2026-01-30T00:00:00Z"
+    },
+    {
+      "id": "test-bloomberg-001",
+      "title": "Test: Bloomberg Market News (Source Boost +10)",
+      "url": "https://www.bloomberg.com/markets/news",
+      "source": "Bloomberg",
+      "status": "unprocessed",
+      "marchScore": 60,
+      "aiLeadership": false,
+      "publishedAt": "2026-01-30T00:00:00Z"
+    },
+    {
+      "id": "test-ft-001",
+      "title": "Test: Financial Times Leadership (+10 Source Boost)",
+      "url": "https://www.ft.com/leadership/ceo-interview",
+      "source": "Financial Times",
+      "status": "unprocessed",
+      "marchScore": 60,
+      "aiLeadership": true,
+      "publishedAt": "2026-01-30T00:00:00Z"
+    }
+  ],
+  "stats": {
+    "total": 7,
+    "bySource": {
+      "Reuters": 4,
+      "Bloomberg": 1,
+      "Financial Times": 1,
+      "General": 1
+    },
+    "byStatus": {
+      "unprocessed": 7,
+      "posted": 0,
+      "archived": 0
+    },
+    "byPriority": {
+      "Critical (100)": 1,
+      "High (90-99)": 1,
+      "Moderate (70-79)": 1,
+      "Medium (60-69)": 1,
+      "Low (50-59)": 1
+    },
+    "byAiLeadership": {
+      "true": 2,
+      "false": 5
+    },
+    "lastFetch": "2026-01-30T00:00:00Z"
+  }
+}
