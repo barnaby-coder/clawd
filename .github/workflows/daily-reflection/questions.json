@@ -1,0 +1,40 @@
+{
+  "self_awareness": [
+    {"id": 1, "question": "What one thing about yourself surprised you today?", "category": "Self-Awareness"},
+    {"id": 2, "question": "What emotion dominated your day, and why?", "category": "Self-Awareness"},
+    {"id": 3, "question": "What triggered your biggest stress or anxiety today?", "category": "Self-Awareness"},
+    {"id": 4, "question": "If you could describe your energy level (1-10) right now, what would it be?", "category": "Self-Awareness"},
+    {"id": 5, "question": "What moment today made you feel most alive or most \"you\"?", "category": "Self-Awareness"},
+    {"id": 6, "question": "What's one thing you learned about yourself today?", "category": "Self-Awareness"}
+  ],
+  "emotional_intelligence": [
+    {"id": 7, "question": "How did you handle a difficult conversation or challenge today?", "category": "Emotional Intelligence"},
+    {"id": 8, "question": "What emotional state were you in during that situation?", "category": "Emotional Intelligence"},
+    {"id": 9, "question": "What helped you calm down or regain perspective?", "category": "Emotional Intelligence"},
+    {"id": 10, "question": "What emotion did you struggle to express or manage today?", "category": "Emotional Intelligence"},
+    {"id": 11, "question": "How did you respond to unexpected news or setback today?", "category": "Emotional Intelligence"},
+    {"id": 12, "question": "What emotional regulation strategy worked best today?", "category": "Emotional Intelligence"},
+    {"id": 13, "question": "What's one emotional intelligence skill you want to improve next week?", "category": "Emotional Intelligence"}
+  ],
+  "relationships": [
+    {"id": 14, "question": "What was the most meaningful interaction you had with someone today?", "category": "Relationships"},
+    {"id": 15, "question": "How did you show up for someone who needed you today?", "category": "Relationships"},
+    {"id": 16, "question": "What boundary did you respect or set with a colleague or friend today?", "category": "Relationships"},
+    {"id": 17, "question": "How did you handle a conflict or disagreement with someone today?", "category": "Relationships"},
+    {"id": 18, "question": "What social signal did you miss or misinterpret today?", "category": "Relationships"},
+    {"id": 19, "question": "What social interaction gave you the most satisfaction today?", "category": "Relationships"},
+    {"id": 20, "question": "What's one relationship skill you want to work on next week?", "category": "Relationships"}
+  ],
+  "growth": [
+    {"id": 21, "question": "What's one new insight or perspective you gained today?", "category": "Growth & Learning"},
+    {"id": 22, "question": "What mistake did you make today that you learned from?", "category": "Growth & Learning"},
+    {"id": 23, "question": "What skill or capability do you feel you improved in today?", "category": "Growth & Learning"},
+    {"id": 24, "question": "What's one thing you want to be better at by this time next week?", "category": "Growth & Learning"},
+    {"id": 25, "question": "What's the most important lesson or breakthrough you experienced today?", "category": "Growth & Learning"},
+    {"id": 26, "question": "What personal growth intention or goal do you have for the next month?", "category": "Growth & Learning"},
+    {"id": 27, "question": "What's one habit or routine you want to change or start?", "category": "Growth & Learning"},
+    {"id": 28, "question": "What's one thing you're grateful for today?", "category": "Growth & Learning"},
+    {"id": 29, "question": "What's the most significant achievement or progress you made today?", "category": "Growth & Learning"},
+    {"id": 30, "question": "What would make today a 'perfect day' and why?", "category": "Growth & Learning"}
+  ]
+}
