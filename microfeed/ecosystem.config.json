@@ -1,0 +1,11 @@
+{
+  "apps": [{
+    "name": "microfeed",
+    "script": "node server.js",
+    "cwd": "./",
+    "env": {
+      "NODE_ENV": "production",
+      "NODE_PATH": "./node_modules"
+    }
+  }]
+}
