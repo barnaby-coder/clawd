@@ -1,0 +1,188 @@
+name: Clickable Briefing - AI Leadership & Tech Trends
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of top articles to include (default: 10)'
+        required: false
+        type: number
+      source:
+        description: 'Source to filter by (optional: Reuters, Bloomberg, Financial Times)'
+        required: false
+        type: choice
+        options:
+          - All Sources
+          - Reuters Technology
+          - Reuters Business
+          - Reuters AI
+          - Bloomberg Technology
+          - Bloomberg Business
+          - Financial Times
+
+jobs:
+  clickable-briefing:
+    name: Generate Clickable Briefing
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Load configuration
+        run: |
+          echo "✅ Configuration loaded"
+          echo "📰 Fetching briefings for: ${{ inputs.limit }} articles"
+
+      - name: Generate clickable HTML briefing
+        id: generate_briefing
+        run: |
+          node -e "
+            const fs = require('fs');
+            const config = require('./config');
+            const { loadData, calculateMarchScore } = require('./collector');
+
+            async function main() {
+              const limit = parseInt(process.env.LIMIT) || 10;
+              const sourceFilter = process.env.SOURCE_FILTER;
+              
+              const data = loadData();
+              let items = data.items;
+
+              // Filter by source if specified
+              if (sourceFilter && sourceFilter !== 'All Sources') {
+                const lowerFilter = sourceFilter.toLowerCase();
+                items = items.filter(item => item.source.toLowerCase().includes(lowerFilter));
+              }
+
+              // Sort by March Score (descending - highest first)
+              items.sort((a, b) => {
+                const scoreA = calculateMarchScore(a);
+                const scoreB = calculateMarchScore(b);
+                return scoreB - scoreA;
+              });
+
+              // Get top N items
+              const topItems = items.slice(0, Math.min(items.length, limit));
+
+              // Generate clickable HTML briefing
+              const date = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+              const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric' });
+
+              let html = \`🤖 <b>AI Leadership Briefing</b> 📅 \${date} \${time}\n\n\`;
+
+              // Critical Priority (80-100)
+              const critical = topItems.filter(item => (item.marchScore || 50) >= 80);
+              if (critical.length > 0) {
+                html += \`🔥 <u>CRITICAL PRIORITY — AI Leadership</u> (\${critical.length} articles)\n\n\`;
+                critical.forEach((item, i) => {
+                  const score = item.marchScore || 50;
+                  html += \`• <a href=\"\${item.link}\"><b>\${item.title}</b></a> · <i>\${item.source}</i> · <b>Score: \${score}/100</b></a>\n\`;
+                  if (item.summary && item.summary.length > 50) {
+                    html += \`  \${item.summary.substring(0, 150)}...\n\`;
+                  }
+                });
+              }
+
+              // High Priority (70-79)
+              const high = topItems.filter(item => {
+                (item.marchScore || 50) >= 70 && (item.marchScore || 50) < 80
+              });
+              if (high.length > 0) {
+                html += \`\\n🟠 <u>HIGH PRIORITY — Technology & AI</u> (\${high.length} articles)\n\n\`;
+                high.forEach((item, i) => {
+                  const score = item.marchScore || 50;
+                  html += \`• <a href=\"\${item.link}\"><b>\${item.title}</b></a> · <i>\${item.source}</i> · <b>Score: \${score}/100</b></a>\n\`;
+                  if (item.aiLeadership) {
+                    html += \`  🤖\`;
+                  }
+                });
+              }
+
+              // Medium Priority (60-69)
+              const medium = topItems.filter(item => {
+                (item.marchScore || 50) >= 60 && (item.marchScore || 50) < 70
+              });
+              if (medium.length > 0) {
+                html += \`\\n🟡 <u>MEDIUM PRIORITY — General Business</u> (\${medium.length} articles)\n\n\`;
+                medium.forEach((item, i) => {
+                  const score = item.marchScore || 50;
+                  html += \`• <a href=\"\${item.link}\"><b>\${item.title}</b></a> · <i>\${item.source}</i> · <b>Score: \${score}/100</b></a>\n\`;
+                });
+              }
+
+              // Low Priority (50-59)
+              const low = topItems.filter(item => {
+                (item.marchScore || 50) >= 50 && (item.marchScore || 50) < 60
+              });
+              if (low.length > 0) {
+                html += \`\\n⚪ <u>LOW PRIORITY — General Content</u> (\${low.length} articles)\n\n\`;
+                low.forEach((item, i) => {
+                  const score = item.marchScore || 50;
+                  html += \`• <a href=\"\${item.link}\"><b>\${item.title}</b></a> · <i>\${item.source}</i> · <b>Score: \${score}/100</b></a>\n\`;
+                });
+              }
+
+              // Statistics Footer
+              const aiLeadership = topItems.filter(item => item.aiLeadership === true).length;
+              const avgScore = topItems.reduce((sum, i) => sum + (i.marchScore || 50), 0) / topItems.length;
+
+              html += \`\\n\\n<b>📊 PRIORIZATION STATISTICS</b>\n\`;
+              html += \`Total Items: \${topItems.length}\n\`;
+              html += \`Critical (80-100): \${critical.length} (\${Math.round(critical.length / topItems.length * 100)}%)\n\`;
+              html += \`High (70-99): \${high.length} (\${Math.round(high.length / topItems.length * 100)}%)\n\`;
+              html += \`Medium (60-69): \${medium.length} (\${Math.round(medium.length / topItems.length * 100)}%)\n\`;
+              html += \`Low (50-59): \${low.length} (\${Math.round(low.length / topItems.length * 100)}%)\n\`;
+              html += \`AI Leadership: \${aiLeadership} (\${Math.round(aiLeadership / topItems.length * 100)}%)\n\`;
+              html += \`Average March Score: \${(avgScore).toFixed(1)}/100\n\`;
+              html += \`\\n🔗 <a href=\"http://localhost:3457/api/items\">View All Items</a> | <a href=\"http://localhost:3457/api/items?sort=priority\">Sort by Priority</a> | <a href=\"http://localhost:3457/api/stats\">View Statistics</a>\n\`;
+
+              console.log('✅ Clickable briefing generated');
+              console.log(html);
+
+              // Save to output file for debugging
+              fs.writeFileSync('/tmp/clickable-briefing.txt', html);
+
+              return html;
+            }
+
+            main().catch(err => {
+              console.error('❌ Error:', err);
+              process.exit(1);
+            });
+
+            // Output result
+            echo "\${html}" > /tmp/briefing.html
+
+      - name: Upload briefing to GitHub
+        run: |
+          echo "📤 Uploading clickable briefing..."
+          echo "HTML" > /tmp/briefing.txt
+          cat /tmp/briefing.html
+
+      - name: Send to Telegram
+        run: |
+          echo "📤 Sending clickable briefing to Telegram..."
+          curl -s "https://api.telegram.org/bot\${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -H "Content-Type: text/html; charset=utf-8" \
+            -H "X-Telegram-Bot-Api-Version: 6" \
+            -d "chat_id=\${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d "disable_web_page_preview=true" \
+            -d "text=$(cat /tmp/briefing.html)" \
+            --max-time 30
+
+      - name: Update last briefing time
+        run: |
+          echo "⏰ Updating last briefing time..."
+          echo "\$(date +%Y-%m-%dT%H:%M:%S)" > /home/ubuntu/clawd/microfeed/last-briefing.txt
+
+      - name: Report failure
+        if: failure()
+          run: |
+            echo "❌ Briefing failed"
